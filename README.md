@@ -1,1 +1,1 @@
-# lgp-angularClient
+# LGP-CMS
