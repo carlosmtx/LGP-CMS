@@ -16,7 +16,7 @@ var config = {
         enable: true
     },
     dev:{
-        tasks: ['sass', 'copy:js'],
+        tasks: ['sass', 'copy'],
         enable: true
     }
 };
