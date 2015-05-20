@@ -1,0 +1,39 @@
+<div ng-include="'partials/topbar.html'"></div>
+<div ng-include="'partials/navbar.html'"></div>
+<div class="wrapper channelMenu" ng-controller="trackableCtrl" >
+    <div class="box" >
+        <div class="box-header">
+            <h3 class="box-title">Quick Example</h3>
+        </div>
+
+        <form role="form" name="trackable">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Name</label>
+                    <input ng-model="trackable.name" required="" type="text" class="form-control" id="exampleInputPassword1" placeholder="Trackable Name">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Description</label>
+                    <input ng-model="trackable.description" type="text" class="form-control" id="exampleInputEmail1" placeholder="Description">
+                </div>
+                <div class="form-group" ng-model="selectedChannels">
+                    <label>Select</label>
+                    <select   ng-click="createNewSelect()" ng-repeat="(key,selectedScene) in selectedScenes track by $index" class="form-control" >
+                        <option ng-repeat="scene in scenes" value="{{scene.id}}">{{scene.name}}</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="exampleInputFile">File input</label>
+                    <input type="file" id="exampleInputFile">
+                    <p class="help-block">Trackable File.</p>
+                </div>
+            </div><!-- /.box-body -->
+
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

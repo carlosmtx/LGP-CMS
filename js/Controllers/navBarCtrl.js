@@ -3,8 +3,24 @@
  */
 var appControllers = angular.module('arbanking-controllers');
 
-appControllers.controller("navBarCtrl", ['$scope','$http', '$routeParams',
-    function($scope, $http, $routeParams){
+appControllers.controller("navBarCtrl", ['$scope','$http', '$constants','$routeParams',
+    function($scope,$http , $constants,$routeParams){
+        $http({
+            url: $constants.getUrl('/channels'),
+            method: 'GET'
+        }).success(function(data){
+            if(!(data instanceof Array)){
+                data = [data];
+            }
+            $scope.channels = data;
+        });
+
+
+
+        $scope.trackableUrl = '#/channel/'+$routeParams.name+'/trackable/new';
+        $scope.selectedChannels = [[]];
+
+
         $scope.collapse = function(){
             if($('body').hasClass('sidebar-collapse')){
                 $('body').removeClass('sidebar-collapse');
@@ -14,6 +30,5 @@ appControllers.controller("navBarCtrl", ['$scope','$http', '$routeParams',
                 $('.main-header .logo').attr('style','');
 
             }
-
         }
     }]);

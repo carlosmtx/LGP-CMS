@@ -7,7 +7,7 @@
             <h3 class="box-title">Trackables</h3>
             <div class="box-tools">
                 <div class="input-group">
-                    <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search">
+                    <input data-ng-model="trackableName" type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search">
                     <div class="input-group-btn">
                         <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
                     </div>
@@ -17,14 +17,16 @@
         <div class="box-body table-responsive no-padding">
             <table class="table table-hover">
                 <tbody><tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Date</th>
+                    <th width="10%">ID</th>
+                    <th width="35%">Name</th>
+                    <th width="35%">Date</th>
+                    <th width="20%">Preview</th>
                 </tr>
-                <tr> <!--ng-repeat aqui para ir tudo junto-->
-                    <td>183</td>
-                    <td>John Doe</td>
-                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                <tr ng-repeat="(key,trackable) in trackables | filter:trackableName"> <!--ng-repeat aqui para ir tudo junto-->
+                    <td>{{key+1}}</td>
+                    <td>{{trackable.name || 'Default Trackable' }}</td>
+                    <td>{{trackable.createdAt.date | date:'yyyy-MM-dd' }}</td>
+                    <td><a href=""   target="_blank">Preview</a></td>
                 </tr>
                 </tbody></table>
         </div><!-- /.box-body -->
@@ -35,7 +37,7 @@
             <h3 class="box-title">Scenes</h3>
             <div class="box-tools">
                 <div class="input-group">
-                    <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search">
+                    <input ng-model="sceneName" type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search">
                     <div class="input-group-btn">
                         <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
                     </div>
@@ -45,14 +47,17 @@
         <div class="box-body table-responsive no-padding">
             <table class="table table-hover">
                 <tbody><tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Date</th>
+                    <th width="10%">ID</th>
+                    <th width="35%">Name</th>
+                    <th width="35%">Date</th>
+                    <th width="20%">Preview</th>
                 </tr>
-                <tr> <!--ng-repeat aqui para ir tudo junto-->
-                    <td>183</td>
-                    <td>John Doe</td>
-                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                <tr ng-repeat="(key,scene) in scenes | filter: sceneName ">
+                    <td>{{key+1}}</td>
+                    <td>{{scene.name || 'Name not Found'}}</td>
+                    <td>{{scene.createdAt.date}}</td>
+                    <td><a>Preview</a></td>
+
                 </tr>
                 </tbody></table>
         </div><!-- /.box-body -->

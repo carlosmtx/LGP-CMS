@@ -2,26 +2,27 @@
 
 var appControllers = angular.module('arbanking-controllers');
 
-appControllers.controller("channelCtrl", ['$scope','$http', '$routeParams',
-	function($scope, $http, $routeParams){
-		$scope.channelName = $routeParams.channelName;
-		/*$http.get(myConstants.apiUrl+'/channel/'+$routeParams.channelName+'/version')
-			.success(function (data) {
-				console.log(data);
-				$scope.versions = data;
-			});
+appControllers.controller("channelCtrl", ['$scope','$http', '$routeParams','$constants',
+	function($scope, $http, $routeParams, $constants){
+        var channel = $routeParams.name;
 
-		$scope.createVersion = function (name) {
-			console.log(name);
-			$http.put(
-				myConstants.apiUrl + '/channel/'+$scope.channelName+'/version/'+name)
-				.success(function (data) {
-					$scope.versions.push(data);
-				})
-				.error(function(){console.log("createChannel error")});
-		};*/
+        $http({
+            url: $constants.getUrl('/channel/'+channel+'/trackables')
+        }).success(function(data){
+            if(!(data instanceof Array)){
+                data = [data];
+            }
+            $scope.trackables = data;
+        });
 
-		$scope.openModal1 = function() {
-			$('#createNewTrackable').modal("show");
-		}
-	}])
+        $http({
+            url: $constants.getUrl('/channel/'+channel+'/scenes')
+        }).success(function(data){
+            if(!(data instanceof Array)){
+                data = [data];
+            }
+            console.log(data);
+            $scope.scenes = data;
+        });
+
+	}]);
