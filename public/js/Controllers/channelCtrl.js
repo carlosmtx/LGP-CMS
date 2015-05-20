@@ -21,7 +21,7 @@ appControllers.controller("channelCtrl", ['$scope','$http', '$routeParams',
 				.error(function(){console.log("createChannel error")});
 		};*/
 
-		$scope.openModal = function() {
-			$('#createVersionModal').appendTo("body").modal("show");
+		$scope.openModal1 = function() {
+			$('#createNewTrackable').modal("show");
 		}
 	}])

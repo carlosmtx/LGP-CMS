@@ -12,11 +12,11 @@ var config = {
         dest: 'public/vendor'
     },
     prod:{
-        tasks: ['sass', 'uglify', 'copy:vendors'],
+        tasks: ['sass', 'uglify', 'copy'],
         enable: true
     },
     dev:{
-        tasks: ['sass', 'copy:js'],
+        tasks: ['sass', 'copy'],
         enable: true
     }
 };

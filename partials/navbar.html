@@ -1,4 +1,4 @@
-<aside class="main-sidebar">
+<aside class="main-sidebar" ng-controller="channelCtrl">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar" style="height: auto;">
 
@@ -13,11 +13,32 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="simple.html"><i class="fa fa-circle-o"></i>Trackable</a></li>
-                    <li class="active"><a href="data.html"><i class="fa fa-circle-o"></i>Scene</a></li>
+                    <li><a ng-click="openModal1()"><i class="fa fa-circle-o"></i>Trackable</a></li>
+                    <li><a ng-click="openModal2()"><i class="fa fa-circle-o"></i>Scene</a></li>
                 </ul>
             </li>
         </ul>
     </section>
+
+
+    <div class="example-modal" id="createNewTrackable">
+        <div class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">Modal Default</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>One fine body…</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
     <!-- /.sidebar -->
 </aside>
