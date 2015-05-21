@@ -4,12 +4,20 @@ constants.apiUrl = 'api.lgp.dev';
 var app = angular.module('arbanking', [
         'ngRoute',
         'arbanking-controllers',
-        'arbanking-services'
+        'arbanking-services',
+        'ngFileUpload'
     ]
 );
 
 app.constant('parameters',constants);
-
+app.config(function ($httpProvider) {
+    $httpProvider.defaults.transformRequest = function(data){
+        if (data === undefined) {
+            return data;
+        }
+        return $.param(data);
+    }
+});
 app.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider
@@ -24,6 +32,10 @@ app.config(['$routeProvider',
             .when('/login', {
                 controller: 'authCtrl',
                 templateUrl: 'partials/login.html'
+            })
+            .otherwise({
+                controller: 'defaultCtrl',
+                templateUrl:'partials/redirecting.html'
             })
     }]);
 

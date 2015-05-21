@@ -6,34 +6,55 @@
             <h3 class="box-title">Quick Example</h3>
         </div>
 
-        <form role="form" name="trackable">
+        <form role="form" ng-submit="submit()">
             <div class="box-body">
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Name</label>
-                    <input ng-model="trackable.name" required="" type="text" class="form-control" id="exampleInputPassword1" placeholder="Trackable Name">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Description</label>
-                    <input ng-model="trackable.description" type="text" class="form-control" id="exampleInputEmail1" placeholder="Description">
-                </div>
-                <div class="form-group" ng-model="selectedChannels">
-                    <label>Select</label>
-                    <select   ng-click="createNewSelect()" ng-repeat="(key,selectedScene) in selectedScenes track by $index" class="form-control" >
-                        <option ng-repeat="scene in scenes" value="{{scene.id}}">{{scene.name}}</option>
-                    </select>
-                </div>
+                    <div ng-repeat-end class="row">
+                        <div class="col-md-10">
+                            <label for="exampleInputPassword1">Name</label>
+                            <input ng-model="trackable.name" required="" type="text" class="form-control" id="exampleInputPassword1" placeholder="Trackable Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div ng-repeat-end class="row">
+                            <div class="col-md-10">
+                                <label for="exampleInputEmail1">Description</label>
+                                <input ng-model="trackable.description" type="text" class="form-control" id="exampleInputEmail1" placeholder="Description">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-model="selectedChannels">
+                        <label  ng-repeat-start="(key,selectedScene) in selectedScenes">Scene</label>
+                        <div ng-repeat-end class="row">
+                            <div class="col-md-10">
+                                <select
+                                        ng-model='selectedScene.id'
+                                        class="form-control" >
+                                    <option selected disabled hidden value=''></option>
+                                    <option ng-repeat="scene in scenes" value="{{scene.id}}" >{{scene.name}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="">
+                                    <a class="btn btn-success" ng-click="createNewSelect()"><i class="fa fa-plus"></i></a>
+                                    <a class="btn btn-danger" ng-click="removeNewSelect()"><i class="fa fa-trash-o"></i></a>
+                                </div>
+                            </div>
+                        </div >
+                    </div>
 
+                    <div class="form-group" required>
+                        <label for="file">File input</label>
+                        <input ng-model="files" ngf-select type="file" id="file">
+                        <p class="help-block">Trackable File.</p>
+                    </div>
+                </div><!-- /.box-body -->
 
-                <div class="form-group">
-                    <label for="exampleInputFile">File input</label>
-                    <input type="file" id="exampleInputFile">
-                    <p class="help-block">Trackable File.</p>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
-            </div><!-- /.box-body -->
-
-            <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
     </div>
+
 </div>

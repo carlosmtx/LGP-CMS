@@ -20,13 +20,13 @@
                     <th width="10%">ID</th>
                     <th width="35%">Name</th>
                     <th width="35%">Date</th>
-                    <th width="20%">Preview</th>
+                    <th width="20%">Download</th>
                 </tr>
                 <tr ng-repeat="(key,trackable) in trackables | filter:trackableName"> <!--ng-repeat aqui para ir tudo junto-->
                     <td>{{key+1}}</td>
                     <td>{{trackable.name || 'Default Trackable' }}</td>
                     <td>{{trackable.createdAt.date | date:'yyyy-MM-dd' }}</td>
-                    <td><a href=""   target="_blank">Preview</a></td>
+                    <td><a href="{{trackable.url}}"   target="_blank">Download</a></td>
                 </tr>
                 </tbody></table>
         </div><!-- /.box-body -->
@@ -50,13 +50,13 @@
                     <th width="10%">ID</th>
                     <th width="35%">Name</th>
                     <th width="35%">Date</th>
-                    <th width="20%">Preview</th>
+                    <th width="20%">Download</th>
                 </tr>
                 <tr ng-repeat="(key,scene) in scenes | filter: sceneName ">
                     <td>{{key+1}}</td>
                     <td>{{scene.name || 'Name not Found'}}</td>
                     <td>{{scene.createdAt.date}}</td>
-                    <td><a>Preview</a></td>
+                    <td><a href="{{scene.url}}">Download</a></td>
 
                 </tr>
                 </tbody></table>

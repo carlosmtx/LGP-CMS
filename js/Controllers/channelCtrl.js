@@ -12,7 +12,11 @@ appControllers.controller("channelCtrl", ['$scope','$http', '$routeParams','$con
             if(!(data instanceof Array)){
                 data = [data];
             }
+            for(var i = 0 ; i < data.length ;i++){
+                data[i].url = $constants.getUrl('/channel/'+channel+'/trackable?trackable='+data[i].id);
+            }
             $scope.trackables = data;
+
         });
 
         $http({
@@ -21,7 +25,9 @@ appControllers.controller("channelCtrl", ['$scope','$http', '$routeParams','$con
             if(!(data instanceof Array)){
                 data = [data];
             }
-            console.log(data);
+            for(var i = 0 ; i < data.length;i++){
+                data[i].url = $constants.getUrl('/channel/'+channel+'/scene?scene='+data[i].id)
+            }
             $scope.scenes = data;
         });
 
