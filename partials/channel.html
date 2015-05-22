@@ -17,16 +17,18 @@
         <div class="box-body table-responsive no-padding">
             <table class="table table-hover">
                 <tbody><tr>
-                    <th width="10%">ID</th>
-                    <th width="35%">Name</th>
-                    <th width="35%">Date</th>
-                    <th width="20%">Download</th>
+                    <th width="5%">ID</th>
+                    <th width="25%">Name</th>
+                    <th width="15%">Date</th>
+                    <th width="45%">Description</th>
+                    <th width="10%" class="text-center">Download</th>
                 </tr>
                 <tr ng-repeat="(key,trackable) in trackables | filter:trackableName"> <!--ng-repeat aqui para ir tudo junto-->
                     <td>{{key+1}}</td>
                     <td>{{trackable.name || 'Default Trackable' }}</td>
-                    <td>{{trackable.createdAt.date | date:'yyyy-MM-dd' }}</td>
-                    <td><a href="{{trackable.url}}"   target="_blank">Download</a></td>
+                    <td>{{trackable.createdAt }}</td>
+                    <td>{{trackable.description}}</td>
+                    <td class="text-center"><a href="{{trackable.url}}"   target="_blank"><i class="fa fa-cloud-download "></i></a></td>
                 </tr>
                 </tbody></table>
         </div><!-- /.box-body -->
@@ -47,16 +49,18 @@
         <div class="box-body table-responsive no-padding">
             <table class="table table-hover">
                 <tbody><tr>
-                    <th width="10%">ID</th>
-                    <th width="35%">Name</th>
-                    <th width="35%">Date</th>
-                    <th width="20%">Download</th>
+                    <th width="5%">ID</th>
+                    <th width="25%">Name</th>
+                    <th width="15%">Date</th>
+                    <th width="45%">Description</th>
+                    <th width="10%" class="text-center">Download</th>
                 </tr>
                 <tr ng-repeat="(key,scene) in scenes | filter: sceneName ">
                     <td>{{key+1}}</td>
                     <td>{{scene.name || 'Name not Found'}}</td>
-                    <td>{{scene.createdAt.date}}</td>
-                    <td><a href="{{scene.url}}">Download</a></td>
+                    <td>{{scene.createdAt}</td>
+                    <td>{{scene.description}</td>
+                    <td><a href="{{scene.url}}"><i class="fa fa-cloud-download "></i></a></td>
 
                 </tr>
                 </tbody></table>

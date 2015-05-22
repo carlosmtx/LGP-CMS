@@ -3,7 +3,7 @@
 <div class="wrapper channelMenu" ng-controller="trackableCtrl" >
     <div class="box" >
         <div class="box-header">
-            <h3 class="box-title">New Trackable</h3>
+            <h3 class="box-title">New Scene</h3>
         </div>
 
         <form role="form" ng-submit="submit()">
@@ -12,26 +12,26 @@
                     <div ng-repeat-end class="row">
                         <div class="col-md-10">
                             <label for="exampleInputPassword1">Name</label>
-                            <input ng-model="trackable.name" required="" type="text" class="form-control" id="exampleInputPassword1" placeholder="Trackable Name">
+                            <input ng-model="scene.name" required="" type="text" class="form-control" id="exampleInputPassword1" placeholder="Trackable Name">
                         </div>
                     </div>
                     <div class="form-group">
                         <div ng-repeat-end class="row">
                             <div class="col-md-10">
                                 <label for="exampleInputEmail1">Description</label>
-                                <input ng-model="trackable.description" type="text" class="form-control" id="exampleInputEmail1" placeholder="Description">
+                                <input ng-model="scene.description" type="text" class="form-control" id="exampleInputEmail1" placeholder="Description">
                             </div>
                         </div>
                     </div>
-                    <div class="form-group" ng-model="selectedChannels">
-                        <label  ng-repeat-start="(key,selectedScene) in selectedScenes">Scene</label>
+                    <div class="form-group" ng-model="selectedTrackables">
+                        <label  ng-repeat-start="(key,selectedTrackable) in selectedTrackables">Scene</label>
                         <div ng-repeat-end class="row">
                             <div class="col-md-10">
                                 <select
                                         ng-model='selectedScene.id'
                                         class="form-control" >
                                     <option selected disabled hidden value=''></option>
-                                    <option ng-repeat="scene in scenes" value="{{scene.id}}" >{{scene.name}}</option>
+                                    <option ng-repeat="trackable in trackables" value="{{trackable.id}}" >{{trackable.name}}</option>
                                 </select>
                             </div>
                             <div class="col-md-2">
@@ -46,10 +46,9 @@
                     <div class="form-group" required>
                         <label for="file">File input</label>
                         <input ng-model="files" ngf-select type="file" id="file">
-                        <p class="help-block">Trackable File.</p>
+                        <p class="help-block">Scene File.</p>
                     </div>
                 </div><!-- /.box-body -->
-
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
