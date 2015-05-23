@@ -5,7 +5,7 @@ var app = angular.module('arbanking', [
         'ngRoute',
         'arbanking-controllers',
         'arbanking-services',
-        'ngFileUpload'
+        'ngFileUpload',
     ]
 );
 
@@ -16,18 +16,31 @@ app.config(function ($httpProvider) {
             return data;
         }
         return $.param(data);
-    }
+    };
+    $httpProvider.defaults.headers.post = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    };
+
 });
+
 app.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider
-            .when('/channel/:name', {
+            .when('/app/:name', {
                 controller: 'channelCtrl',
                 templateUrl: 'partials/channel.html'
             })
-            .when('/channel/:name/trackable/new',{
-                controller: 'trackableCtrl',
-                templateUrl: 'partials/trackable_new.html'
+            .when('/app/:name/trackable/new',{
+                controller: 'newTrackableCtrl',
+                templateUrl: 'partials/new_trackable.html'
+            })
+            .when('/app/:name/scene/new',{
+                controller: 'newSceneCtrl',
+                templateUrl: 'partials/new_scene.html'
+            })
+            .when('/app',{
+                controller: 'newChannelCtrl',
+                templateUrl:'partials/new_channel.html'
             })
             .when('/login', {
                 controller: 'authCtrl',
@@ -37,5 +50,6 @@ app.config(['$routeProvider',
                 controller: 'defaultCtrl',
                 templateUrl:'partials/redirecting.html'
             })
-    }]);
+    }
+]);
 

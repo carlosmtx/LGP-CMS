@@ -12,7 +12,8 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li ng-repeat="channel in channels"><a ng-href="#channel/{{channel.name}}" ><i class="fa fa-circle-o"></i>{{channel.name}}</a></li>
+                    <li ng-repeat="channel in channels"><a ng-href="#app/{{channel.name}}" ><i class="fa fa-circle-o"></i>{{channel.name}}</a></li>
+                    <li ><a ng-href="{{channelUrl}}" ><i class="fa fa-plus"></i>New Application</a></li>
                 </ul>
             </li>
             <li class="treeview ">

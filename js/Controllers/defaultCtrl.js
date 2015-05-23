@@ -12,7 +12,8 @@ appControllers.controller("defaultCtrl", ['$scope','$http', '$routeParams','$con
             if(!(data instanceof Array)){
                 data = [data];
             }
-            $location.path('/channel/'+data[0].name);
+            console.log("redirecting");
+            $location.path('/app/'+data[0].name);
             $location.replace();
         });
 

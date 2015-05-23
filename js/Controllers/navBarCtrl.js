@@ -1,6 +1,3 @@
-/**
- * Created by rafiki on 17-05-2015.
- */
 var appControllers = angular.module('arbanking-controllers');
 
 appControllers.controller("navBarCtrl", ['$scope','$http', '$constants','$routeParams',
@@ -15,9 +12,9 @@ appControllers.controller("navBarCtrl", ['$scope','$http', '$constants','$routeP
             $scope.channels = data;
         });
 
-
-
-        $scope.trackableUrl = '#/channel/'+$routeParams.name+'/trackable/new';
+        $scope.trackableUrl = '#/app/'+$routeParams.name+'/trackable/new';
+        $scope.sceneUrl     = '#/app/'+$routeParams.name+'/scene/new';
+        $scope.channelUrl   = '#/app';
         $scope.selectedChannels = [[]];
 
 
@@ -31,4 +28,5 @@ appControllers.controller("navBarCtrl", ['$scope','$http', '$constants','$routeP
 
             }
         }
-    }]);
+    }
+]);

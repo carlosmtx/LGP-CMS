@@ -1,21 +1,21 @@
 var appControllers = angular.module('arbanking-controllers');
 
-appControllers.controller("trackableCtrl", ['$scope','$http', '$routeParams','$constants','Upload',
+appControllers.controller("newTrackableCtrl", ['$scope','$http', '$routeParams','$constants','Upload',
     function($scope, $http, $routeParams,$constants,Upload){
         var channel = $routeParams.name;
         $scope.trackable={};
         $http({
             url: $constants.getUrl('/channel/'+$routeParams.name+'/scenes')
         })
-        .success(function(data){
-            if(!(data instanceof Array)){
-                data = [data];
-            }
-            $scope.scenes = data;
-            $scope.selectedScenes = [];
-            $scope.selectedScenes.push({});
+            .success(function(data){
+                if(!(data instanceof Array)){
+                    data = [data];
+                }
+                $scope.scenes = data;
+                $scope.selectedScenes = [];
+                $scope.selectedScenes.push({});
 
-        });
+            });
 
 
         $scope.createNewSelect= function(){
@@ -50,4 +50,5 @@ appControllers.controller("trackableCtrl", ['$scope','$http', '$routeParams','$c
                 }
             });
         };
-    }]);
+    }
+]);
