@@ -19,7 +19,7 @@ appControllers.controller("newTrackableCtrl", ['$scope','$http', '$routeParams',
 
 
         $scope.createNewSelect= function(){
-            if($scope.selectedScenes.length < $scope.scenes.length ) $scope.selectedScenes.push({});
+            $scope.selectedScenes.push({});
         };
         $scope.removeNewSelect= function(){
             if($scope.selectedScenes.length > 1)  $scope.selectedScenes.pop();
