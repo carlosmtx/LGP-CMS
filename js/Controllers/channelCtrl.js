@@ -62,6 +62,73 @@ appControllers.controller("channelCtrl", ['$scope','$http', '$routeParams','$con
                     },1500);
                 });
         };
+
+        $scope.setCurrentScene = function(scene){
+            if(scene.current) return;
+            $http({
+                url : $constants.getUrl('/channel/'+channel+'/current'),
+                data: {scene: scene.id },
+                method: 'POST'
+            })
+            .success(function(data){
+                fetchScenes();
+                $scope.messages.push({
+                    type : 'success',
+                    message: 'Scene  '+ scene.name + ' is now the default scene'
+                });
+            })
+            .error(function(data){
+                $scope.messages.push({
+                    type : 'error',
+                    message: data
+                });
+            })
+            .finally(function(){
+                $timeout(function(){
+                    $scope.messages.shift();
+                    $scope.$apply();
+                },1500);
+            });
+        };
+
+        $scope.deleteScene= function(scene){
+            if(scene.current){
+                $scope.messages.push({
+                    type: 'error',
+                    message: 'Deleting the current version is not allowed'
+                });
+                $timeout(function(){
+                    $scope.messages.shift();
+                    $scope.$apply();
+                },1500);
+                return;
+            }
+            $http({
+                url : $constants.getUrl('/channel/'+channel+'/scene?scene='+scene.id),
+                method: 'DELETE'
+            })
+                .success(function(data){
+                    fetchScenes();
+                    $scope.messages.push({
+                        type : 'success',
+                        message: 'Scene  '+ scene.name + ' removed'
+                    });
+                })
+                .error(function(data){
+                    $scope.messages.push({
+                        type : 'error',
+                        message: data
+                    });
+                })
+                .finally(function(){
+                    $timeout(function(){
+                        $scope.messages.shift();
+                        $scope.$apply();
+                    },1500);
+                });
+        };
+
+
         fetchScenes();
         fetchTrackables();
 

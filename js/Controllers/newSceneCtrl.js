@@ -1,8 +1,9 @@
 var appControllers = angular.module('arbanking-controllers');
 
-appControllers.controller("newSceneCtrl", ['$scope','$http', '$constants','$routeParams','Upload','$trackableScene',
-    function($scope, $http , $constants,$routeParams,Upload,$trackableScene){
+appControllers.controller("newSceneCtrl", ['$scope','$http', '$constants','$routeParams','Upload','$trackableScene','$timeout',
+    function($scope, $http , $constants,$routeParams,Upload,$trackableScene,$timeout){
         var channel = $routeParams.name;
+        $scope.messages = [];
 
         $scope.scene={};
         $scope.loading = {};
@@ -33,7 +34,7 @@ appControllers.controller("newSceneCtrl", ['$scope','$http', '$constants','$rout
 
         });
         var i = 0;
-        var link = function(){
+/*        var link = function(){
             if(i >= $scope.selectedTrackables.length) return;
             new $trackableScene.linkSceneToTrackable($scope.scene,$scope.selectedTrackables[i],channel)
                 .success(function(){
@@ -45,8 +46,7 @@ appControllers.controller("newSceneCtrl", ['$scope','$http', '$constants','$rout
                 .error(function(){
                     console.log("Deu Erro");
                 });
-        };
-
+        };*/
         $scope.submit = function(){
             $scope.loading.visible = true;
             $scope.loading.progress= 0;
@@ -57,11 +57,29 @@ appControllers.controller("newSceneCtrl", ['$scope','$http', '$constants','$rout
                 method: 'POST',
                 file: $scope.files[0]
             }).success(function(data) {
-                $scope.scene = data;
-                i = 0;
-                link();
+                $scope.messages.push({
+                    type : 'success',
+                    message: 'Scene  '+ $scope.scene.name + ' created'
+                });
+                $scope.loading.visible = false;
+                $scope.loading.progress= 0;
+                //i = 0;
+                //link();
             }).progress(function(evt){
-                $scope.loading.progress = parseInt(100.0 * evt.loaded / (2*evt.total));
+                $scope.loading.progress = parseInt(100.0 * evt.loaded / (evt.total));
+            }).error(function(data) {
+                $scope.messages.push({
+                    type: 'error',
+                    message: data
+                });
+                $scope.loading.visible = false;
+                $scope.loading.progress= 0;
+
+            }).finally(function(){
+                $timeout(function(){
+                    $scope.messages.shift();
+                    $scope.$apply();
+                },1500);
             });
         };
 

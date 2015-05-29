@@ -9,9 +9,15 @@ appControllers.controller("defaultCtrl", ['$scope','$http', '$routeParams','$con
         $http({
             url: $constants.getUrl('/channels')
         }).success(function(data){
-            if(!(data instanceof Array)){
+            console.log(data);
+            if(!data || data.length === 0){
+                $location.path('/app');
+                $location.replace();
+                return;
+            } else if(!(data instanceof Array)){
                 data = [data];
             }
+
             console.log("redirecting");
             $location.path('/app/'+data[0].name);
             $location.replace();

@@ -42,6 +42,10 @@ app.config(['$routeProvider',
                 controller: 'newChannelCtrl',
                 templateUrl:'partials/new_channel.html'
             })
+            .when('/admin',{
+                controller: 'adminCtrl',
+                templateUrl:'partials/admin.html'
+            })
             .when('/login', {
                 controller: 'authCtrl',
                 templateUrl: 'partials/login.html'
