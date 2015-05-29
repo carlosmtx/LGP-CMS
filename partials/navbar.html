@@ -12,8 +12,13 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li ng-repeat="channel in channels"><a ng-href="#app/{{channel.name}}" ><i class="fa fa-circle-o"></i>{{channel.name}}</a></li>
-                    <li ><a ng-href="{{channelUrl}}" ><i class="fa fa-plus"></i>New Application</a></li>
+                    <li ng-repeat="channel in channels">
+                        <a ng-href="#app/{{channel.name}}" >
+                            <i class="fa fa-circle-o" ng-show="currentChannel != channel.name"></i>
+                            <i class="fa fa-circle"   ng-show="currentChannel == channel.name"></i>{{channel.name}}
+                        </a>
+                    </li>
+
                 </ul>
             </li>
             <li class="treeview ">
@@ -24,6 +29,7 @@
                 <ul class="treeview-menu">
                     <li><a ng-href="{{trackableUrl}}" > <i class="fa fa-circle-o"></i>Trackable</a></li>
                     <li><a ng-href="{{sceneUrl}}">      <i class="fa fa-circle-o"></i>Scene</a></li>
+                    <li ><a ng-href="{{channelUrl}}" ><i class="fa fa-circle-o"></i>New Application</a></li>
                 </ul>
             </li>
         </ul>

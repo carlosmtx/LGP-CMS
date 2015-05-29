@@ -15,7 +15,7 @@ appControllers.controller("navBarCtrl", ['$scope','$http', '$constants','$routeP
         $scope.trackableUrl = '#/app/'+$routeParams.name+'/trackable/new';
         $scope.sceneUrl     = '#/app/'+$routeParams.name+'/scene/new';
         $scope.channelUrl   = '#/app';
-        $scope.selectedChannels = [[]];
+        $scope.currentChannel=$routeParams.name;
 
 
         $scope.collapse = function(){

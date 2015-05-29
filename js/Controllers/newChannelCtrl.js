@@ -3,20 +3,36 @@
  */
 var appControllers = angular.module('arbanking-controllers');
 
-appControllers.controller("newChannelCtrl", ['$scope','$http', '$constants','$routeParams',
-    function($scope, $http , $constants,$routeParams){
+appControllers.controller("newChannelCtrl", ['$scope','$http', '$constants','$routeParams','$timeout',
+    function($scope,$http,$constants,$routeParams,$timeout){
         var channel = $routeParams.name;
 
         $scope.channel={};
+        $scope.done = false;
+        $scope.messages=[];
         $scope.submit = function(){
-
             $http({
-                url: $constants.getUrl('/channel/'+$scope.channel.name),
-                data: {description:$scope.channel.description},
+                url: $constants.getUrl('/channel'),
+                data: {description:$scope.channel.description , name: $scope.channel.name},
                 method: 'POST'
             })
             .success(function(data){
-
+                $scope.messages.push({
+                    type : 'success',
+                    message: 'Application '+$scope.channel.name + 'created'
+                });
+            })
+            .error(function(data){
+                $scope.messages.push({
+                    type : 'error',
+                    message: data
+                });
+            })
+            .finally(function(){
+                $timeout(function(){
+                    $scope.messages.shift()
+                    $scope.$apply();
+                },1500);
             });
 
 

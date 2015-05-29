@@ -1,7 +1,7 @@
 var appControllers = angular.module('arbanking-controllers');
 
-appControllers.controller("newTrackableCtrl", ['$scope','$http', '$routeParams','$constants','Upload',
-    function($scope, $http, $routeParams,$constants,Upload){
+appControllers.controller("newTrackableCtrl", ['$scope','$http', '$routeParams','$constants','Upload','$timeout',
+    function($scope, $http, $routeParams,$constants,Upload,$timeout){
         var channel = $routeParams.name;
         $scope.trackable={};
         $http({
@@ -17,7 +17,7 @@ appControllers.controller("newTrackableCtrl", ['$scope','$http', '$routeParams',
 
             });
 
-
+        $scope.messages = [];
         $scope.createNewSelect= function(){
             $scope.selectedScenes.push({});
         };
@@ -31,23 +31,24 @@ appControllers.controller("newTrackableCtrl", ['$scope','$http', '$routeParams',
                 fields:{name:$scope.trackable.name,description:$scope.trackable.description},
                 method: 'POST',
                 file: $scope.files[0]
-            }).success(function(data){
-                for(var i = 0 ; i < $scope.selectedScenes.length ; i++){
-                    console.log('request:'+i);
-                    $http({
-                        url: $constants.getUrl('/channel/'+channel+'/scene/link'),
-                        method: 'POST',
-                        headers:{
-                            'Content-Type':'multipart/form-data'
-                        },
-                        data:{
-                            scene: $scope.selectedScenes[i].id,
-                            trackable: data.trackable.id
-                        }
-                    }).success(function(){
-                        console.log("Done 1");
-                    });
-                }
+            })
+            .success(function(data){
+                $scope.messages.push({
+                    type : 'success',
+                    message: 'Trackable  '+data.trackable.name + ' created'
+                });
+            })
+            .error(function(data){
+                $scope.messages.push({
+                    type : 'error',
+                    message: data
+                });
+            })
+            .finally(function(){
+                $timeout(function(){
+                    $scope.messages.shift()
+                    $scope.$apply();
+                },1500);
             });
         };
     }
