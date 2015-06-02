@@ -13,25 +13,23 @@
                 <div class="form-group">
                     <div ng-repeat-end class="row">
                         <div class="col-md-10">
-                            <label for="exampleInputPassword1">Name</label>
-                            <input ng-model="trackable.name" required="" type="text" class="form-control" id="exampleInputPassword1" placeholder="Trackable Name">
+                            <label for="trackablename">Name</label>
+                            <input ng-model="trackable.name" required="" type="text" class="form-control" id="trackablename" placeholder="Trackable Name">
                         </div>
                     </div>
                     <div class="form-group">
                         <div ng-repeat-end class="row">
                             <div class="col-md-10">
-                                <label for="exampleInputEmail1">Description</label>
-                                <input ng-model="trackable.description" type="text" class="form-control" id="exampleInputEmail1" placeholder="Description">
+                                <label for="trackabledescription">Description</label>
+                                <input ng-model="trackable.description" type="text" class="form-control" id="trackabledescription" placeholder="Description">
                             </div>
                         </div>
                     </div>
-                    <div class="form-group" ng-model="selectedChannels">
-                        <label  ng-repeat-start="(key,selectedScene) in selectedScenes">Scene</label>
-                        <div ng-repeat-end class="row">
+                    <div class="form-group">
+                        <label  ng-repeat-start="(key,scene) in trackable.scenes">Scene</label>
+                        <div    ng-repeat-end class="row">
                             <div class="col-md-10">
-                                <select
-                                        ng-model='selectedScene.id'
-                                        class="form-control" >
+                                <select ng-model='trackable.scenes[key].id' class="form-control" >
                                     <option selected disabled hidden value=''></option>
                                     <option ng-repeat="scene in scenes" value="{{scene.id}}" >{{scene.name}}</option>
                                 </select>

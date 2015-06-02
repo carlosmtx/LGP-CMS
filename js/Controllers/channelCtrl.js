@@ -2,8 +2,8 @@
 
 var appControllers = angular.module('arbanking-controllers');
 
-appControllers.controller("channelCtrl", ['$scope','$http', '$routeParams','$constants','$timeout',
-	function($scope, $http, $routeParams, $constants,$timeout){
+appControllers.controller("channelCtrl", ['$scope','$http', '$routeParams','$constants','$timeout','$trackableScene',
+	function($scope, $http, $routeParams, $constants,$timeout,$trackableScene){
         var channel = $routeParams.name;
         var fetchTrackables = function(){
             $http({
@@ -125,6 +125,25 @@ appControllers.controller("channelCtrl", ['$scope','$http', '$routeParams','$con
                         $scope.messages.shift();
                         $scope.$apply();
                     },1500);
+                });
+        };
+
+        $scope.sceneModal = function(scene){
+            $('#sceneModal').modal('show');
+            $scope.scene = scene;
+            scene.trackURLBase = $constants.getUrl('/channel/'+channel+'/trackable?trackable=');
+            console.log(scene);
+            console.log("deu");
+        };
+
+        $scope.addTrackable = function(scene,trackable){
+            trackable = { id : trackable};
+            $trackableScene.linkSceneToTrackable(scene,trackable,channel)
+                .success(function(){
+
+                })
+                .error(function(){
+
                 });
         };
 

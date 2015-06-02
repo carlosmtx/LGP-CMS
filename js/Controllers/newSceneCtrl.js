@@ -9,17 +9,16 @@ appControllers.controller("newSceneCtrl", ['$scope','$http', '$constants','$rout
         $scope.loading = {};
         $scope.loading.visible = false;
         $scope.loading.progress = 0;
-        $scope.selectedTrackables = [[]];
+        $scope.scene.trackables = [{}];
 
 
         $scope.createNewSelect= function(){
-            if($scope.selectedTrackables.length < $scope.trackables.length ) $scope.selectedTrackables.push({});
+            if($scope.scene.trackables.length < $scope.trackables.length ) $scope.scene.trackables.push({});
         };
 
         $scope.removeNewSelect= function(){
-            if($scope.selectedTrackables.length > 1)  $scope.selectedTrackables.pop();
+            if($scope.scene.trackables.length > 1)  $scope.scene.trackables.pop();
         };
-
 
         $http({
             url: $constants.getUrl('/channel/'+$routeParams.name+'/trackables')
@@ -29,28 +28,47 @@ appControllers.controller("newSceneCtrl", ['$scope','$http', '$constants','$rout
                 data = [data];
             }
             $scope.trackables = data;
-            $scope.selectedTrackables = [];
-            $scope.selectedTrackables.push({});
 
         });
         var i = 0;
-/*        var link = function(){
-            if(i >= $scope.selectedTrackables.length) return;
-            new $trackableScene.linkSceneToTrackable($scope.scene,$scope.selectedTrackables[i],channel)
+        var link = function(){
+            if(i >= $scope.scene.trackables.length || $scope.scene.trackables[0] == {}) return;
+            console.log($scope.scene);
+            new $trackableScene.linkSceneToTrackable($scope.scene,$scope.scene.trackables[i],channel)
                 .success(function(){
-                    $scope.loading.progress += (50 / $scope.selectedTrackables.length) % 100;
+                    $scope.loading.progress += Math.round(i*100 /$scope.scene.trackables.length  / 10) * 10;
+                    $scope.messages.push({
+                        type : 'success',
+                        message: 'Scene  '+ $scope.scene.name + ' linked to ' + i + ' trackable'
+                    });
+                    $timeout(function(){
+                        $scope.messages.shift();
+                        $scope.$apply();
+                    },1500);
                     i++;
-                    $scope.$apply();
                     link();
                 })
                 .error(function(){
-                    console.log("Deu Erro");
+                    $scope.messages.push({
+                        type : 'error',
+                        message: 'Scene  '+ $scope.scene.name + ' was not linked to ' + scene.trackables[i].name
+                    });
+                    $timeout(function(){
+                        $scope.messages.shift();
+                        $scope.$apply();
+                    },1500);
                 });
-        };*/
+        };
         $scope.submit = function(){
             $scope.loading.visible = true;
             $scope.loading.progress= 0;
-
+            if($scope.files == undefined){
+                $scope.messages.push({
+                    'type'      : 'error',
+                    'message'   : 'A file must be specified'
+                });
+                return;
+            }
             Upload.upload({
                 url : $constants.getUrl('/channel/'+channel+'/scene'),
                 fields:{name:$scope.scene.name,description:$scope.scene.description},
@@ -61,10 +79,11 @@ appControllers.controller("newSceneCtrl", ['$scope','$http', '$constants','$rout
                     type : 'success',
                     message: 'Scene  '+ $scope.scene.name + ' created'
                 });
+                $scope.scene.id = data.scene[0].id;
                 $scope.loading.visible = false;
                 $scope.loading.progress= 0;
-                //i = 0;
-                //link();
+                i = 0;
+                link();
             }).progress(function(evt){
                 $scope.loading.progress = parseInt(100.0 * evt.loaded / (evt.total));
             }).error(function(data) {

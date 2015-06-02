@@ -22,15 +22,10 @@ newsApp.factory('$trackableScene',['$http','$constants', function($http,$constan
     return {
         linkSceneToTrackable: function(scene,trackable,channel){
             var _promise = new Promise();
-            console.log(scene.id);
-            console.log(trackable.id);
             $http({
                 url : $constants.getUrl('/channel/'+channel+'/scene/link'),
                 data: {scene:scene.id,trackable:trackable.id},
                 method: 'POST',
-                headers:{
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
             }).success(function(){
                 _promise._callSuccess()(arguments);
             }).error(function(){
@@ -38,7 +33,6 @@ newsApp.factory('$trackableScene',['$http','$constants', function($http,$constan
             });
 
             return _promise;
-
         }
 
     };
